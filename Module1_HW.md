@@ -44,7 +44,7 @@ volumes:
   vol-pgadmin_data:
     name: vol-pgadmin_data
 ```
-Answer: Postgres:5432
+### Answer: Postgres:5432
 
 
 
@@ -58,6 +58,7 @@ WHERE lpep_pickup_datetime >= TIMESTAMP '2025-11-01'
   AND lpep_pickup_datetime <  TIMESTAMP '2025-12-01'
   AND trip_distance <= 1;
 ```
+<img width="1877" height="893" alt="image" src="https://github.com/user-attachments/assets/380bc4d2-f512-4381-8442-5d038c08bfee" />
 ### Answer: Total Trip Count: 8,007
 
 
@@ -78,6 +79,7 @@ GROUP BY pickup_day
 ORDER BY max_trip_distance DESC
 LIMIT 1;
 ```
+<img width="1907" height="896" alt="image" src="https://github.com/user-attachments/assets/c882bd5b-4c6c-4564-8b3a-2d2b96a5cd91" />
 ### Answer: Pick-up day with the longest trip is 2025-11-14 with a maximum trip distance of 88.03 miles.
 
 
@@ -97,6 +99,8 @@ GROUP BY z."Zone"
 ORDER BY total_revenue DESC
 LIMIT 1;
 ```
+<img width="1872" height="890" alt="image" src="https://github.com/user-attachments/assets/d99a409f-9f2b-4d65-bb8e-5ba08841ce6d" />
+
 ### Answer: East Harlem North.
 
 
@@ -119,7 +123,10 @@ WHERE pz."Zone" = 'East Harlem North'
 GROUP BY dz."Zone"
 ORDER BY max_tip DESC;
 ```
+<img width="1885" height="938" alt="image" src="https://github.com/user-attachments/assets/8b6efdb9-ca9e-4914-90f5-0ae6fbada476" />
 ### Answer: Yotkville West with a maximum tip of $81.89.
+
+
 
 
 ## Question 7. Terraform Workflow
