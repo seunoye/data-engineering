@@ -142,7 +142,7 @@ Which of the following sequences, respectively, describes the workflow for:
 1. Downloading the provider plugins and setting up backend.
 2. Generating proposed changes and auto-executing the plan.
 3. Remove all resources managed by Terraform.
-4. 
+
 ### Answer: terraform init, terraform apply -auto-approve, terraform destroy
 
 
