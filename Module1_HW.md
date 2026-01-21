@@ -85,6 +85,8 @@ LIMIT 1;
 ### Answer: Pick-up day with the longest trip is 2025-11-14 with a maximum trip distance of 88.03 miles.
 
 
+
+
 ## Question 5. Biggest pickup zone
 Which was the pickup zone with the largest total_amount (sum of all trips) on November 18th, 2025?
 
@@ -104,6 +106,8 @@ LIMIT 1;
 <img width="1872" height="890" alt="image" src="https://github.com/user-attachments/assets/d99a409f-9f2b-4d65-bb8e-5ba08841ce6d" />
 
 ### Answer: East Harlem North.
+
+
 
 
 ## Question 6. Largest tip
@@ -128,6 +132,8 @@ ORDER BY max_tip DESC;
 <img width="1885" height="938" alt="image" src="https://github.com/user-attachments/assets/8b6efdb9-ca9e-4914-90f5-0ae6fbada476" />
 
 ### Answer: Yorkville West with a maximum tip of $81.89.
+
+
 
 
 ## Question 7. Terraform Workflow
