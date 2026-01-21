@@ -80,7 +80,7 @@ ORDER BY max_trip_distance DESC
 LIMIT 1;
 ```
 <img width="1907" height="896" alt="image" src="https://github.com/user-attachments/assets/c882bd5b-4c6c-4564-8b3a-2d2b96a5cd91" />
-###  Answer: Pick-up day with the longest trip is 2025-11-14 with a maximum trip distance of 88.03 miles.
+### Answer: Pick-up day with the longest trip is 2025-11-14 with a maximum trip distance of 88.03 miles.
 
 
 ## Question 5. Biggest pickup zone
@@ -101,7 +101,7 @@ LIMIT 1;
 ```
 <img width="1872" height="890" alt="image" src="https://github.com/user-attachments/assets/d99a409f-9f2b-4d65-bb8e-5ba08841ce6d" />
 
-###  Answer: East Harlem North.
+### Answer: East Harlem North.
 
 
 ## Question 6. Largest tip
@@ -124,9 +124,7 @@ GROUP BY dz."Zone"
 ORDER BY max_tip DESC;
 ```
 <img width="1885" height="938" alt="image" src="https://github.com/user-attachments/assets/8b6efdb9-ca9e-4914-90f5-0ae6fbada476" />
-###  Answer: Yotkville West with a maximum tip of $81.89.
-
-
+### Answer: Yorkville West with a maximum tip of $81.89.
 
 
 ## Question 7. Terraform Workflow
@@ -136,7 +134,7 @@ Which of the following sequences, respectively, describes the workflow for:
 2. Generating proposed changes and auto-executing the plan.
 3. Remove all resources managed by Terraform.
 
-###  Answer: terraform init, terraform apply -auto-approve, terraform destroy
+### Answer: terraform init, terraform apply -auto-approve, terraform destroy
 
 
 
