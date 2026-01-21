@@ -1,4 +1,4 @@
-# Module1 Home work for Docker & SQL
+# Module1 Home work for Docker & PostgreSQL
 
 ## Question 1: Understanding Docker images
 Run Docker with the python:3.13 image. Use an entrypoint bash to interact with the container.
