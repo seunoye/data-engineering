@@ -53,7 +53,7 @@ For the trips in November 2025 (lpep_pickup_datetime between '2025-11-01' and '2
 
 ```sql
 SELECT COUNT(*) AS trip_count
-FROM public.taxi_trips
+FROM public.taxi_trip
 WHERE lpep_pickup_datetime >= TIMESTAMP '2025-11-01'
   AND lpep_pickup_datetime <  TIMESTAMP '2025-12-01'
   AND trip_distance <= 1;
@@ -72,7 +72,7 @@ Use the pick-up time for your calculations.
 SELECT
     DATE(lpep_pickup_datetime) AS pickup_day,
     MAX(trip_distance) AS max_trip_distance
-FROM public.taxi_trips
+FROM public.taxi_trip
 WHERE lpep_pickup_datetime >= DATE '2025-11-01'
   AND lpep_pickup_datetime <  DATE '2025-12-01'
   AND trip_distance < 100
@@ -94,7 +94,7 @@ Which was the pickup zone with the largest total_amount (sum of all trips) on No
 SELECT
     z."Zone" AS pickup_zone,
     SUM(t.total_amount) AS total_revenue
-FROM public.taxi_trips t
+FROM public.taxi_trip t
 JOIN public.zones z
   ON t."PULocationID" = z."LocationID"
 WHERE t.lpep_pickup_datetime >= DATE '2025-11-18'
@@ -118,7 +118,7 @@ Note: it's tip, not trip. We need the name of the zone, not the ID.
 SELECT
     dz."Zone" AS dropoff_zone,
     MAX(t.tip_amount) AS max_tip
-FROM public.taxi_trips t
+FROM public.taxi_trip t
 JOIN public.zones pz
   ON t."PULocationID" = pz."LocationID"
 JOIN public.zones dz
