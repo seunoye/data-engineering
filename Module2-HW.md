@@ -36,7 +36,6 @@ To output the uncompressed file size, additional tasks were added to the flow to
 
 ## Question 3. How many rows are there in the Yellow Taxi data for all CSV files in 2020?
 
-'''sql
     
     SELECT
       table_id AS table_name,
@@ -48,8 +47,52 @@ To output the uncompressed file size, additional tasks were added to the flow to
       AND NOT table_id LIKE '%_ext'
     ORDER BY
       table_id;
+
+### Answer Total rows - 24,648,499
+
+## Question 4. How many rows are there in the Green Taxi data for all CSV files in 2020?
+
+    SELECT
+      table_id AS table_name,
+      row_count AS total_rows
+    FROM
+      `composite-haiku-402317.ny_taxi.__TABLES__`
+    WHERE
+      table_id LIKE 'green_tripdata_20%'
+      AND NOT table_id LIKE '%_ext'
+    ORDER BY
+      table_id;
+
+### Answer Total rows - 1,734,051
+
+
+## Question 5. How many rows are there for the Yellow Taxi data for the March 2021 CSV file?
+
+    SELECT
+    COUNT(*) AS total_rows
+    FROM
+    `composite-haiku-402317.ny_taxi.yellow_tripdata_2021_03`;
+
+### Answer Total rows - 1,925,152
+
+## Question 6. How would you configure the timezone to New York in a Schedule trigger?
+
+'''yaml
+
+    - id: nyc_schedule_ny_time
+    type: io.kestra.plugin.core.trigger.Schedule
+    cron: "0 9 1 * *"
+    timezone: America/New_York
+    inputs:
+      taxi: yellow
 '''
-### Answer 24,648,499
+### Answer - Add a timezone property set to America/New_York in the Schedule trigger configuration.
+
+
+
+      
+
+
 
     
 
