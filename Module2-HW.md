@@ -34,6 +34,108 @@ To output the uncompressed file size, additional tasks were added to the flow to
 {{inputs.taxi}}_tripdata_{{inputs.year}}-{{inputs.month}}.csv
 
 
+## Question 3. How many rows are there in the Yellow Taxi data for all CSV files in 2020?
+
+'''SQL
+SELECT
+    'yellow_tripdata_2020_01' AS table_name,
+    COUNT(*) AS total_rows
+  FROM
+    `composite-haiku-402317.ny_taxi.yellow_tripdata_2020_01`
+UNION ALL
+
+SELECT
+    'yellow_tripdata_2020_02' AS table_name,
+    COUNT(*) AS total_rows
+  FROM
+    `composite-haiku-402317.ny_taxi.yellow_tripdata_2020_02`
+UNION ALL
+
+SELECT
+    'yellow_tripdata_2020_03' AS table_name,
+    COUNT(*) AS total_rows
+  FROM
+    `composite-haiku-402317.ny_taxi.yellow_tripdata_2020_03`
+UNION ALL
+
+SELECT
+    'yellow_tripdata_2020_04' AS table_name,
+    COUNT(*) AS total_rows
+  FROM
+    `composite-haiku-402317.ny_taxi.yellow_tripdata_2020_04`
+UNION ALL
+
+SELECT
+    'yellow_tripdata_2020_05' AS table_name,
+    COUNT(*) AS total_rows
+  FROM
+    `composite-haiku-402317.ny_taxi.yellow_tripdata_2020_05`
+UNION ALL
+SELECT
+    'yellow_tripdata_2020_05_ext' AS table_name,
+    COUNT(*) AS total_rows
+  FROM
+    `composite-haiku-402317.ny_taxi.yellow_tripdata_2020_05_ext`
+UNION ALL
+SELECT
+    'yellow_tripdata_2020_06' AS table_name,
+    COUNT(*) AS total_rows
+  FROM
+    `composite-haiku-402317.ny_taxi.yellow_tripdata_2020_06`
+UNION ALL
+SELECT
+    'yellow_tripdata_2020_06_ext' AS table_name,
+    COUNT(*) AS total_rows
+  FROM
+    `composite-haiku-402317.ny_taxi.yellow_tripdata_2020_06_ext`
+UNION ALL
+SELECT
+    'yellow_tripdata_2020_07' AS table_name,
+    COUNT(*) AS total_rows
+  FROM
+    `composite-haiku-402317.ny_taxi.yellow_tripdata_2020_07`
+UNION ALL
+
+SELECT
+    'yellow_tripdata_2020_08' AS table_name,
+    COUNT(*) AS total_rows
+  FROM
+    `composite-haiku-402317.ny_taxi.yellow_tripdata_2020_08`
+UNION ALL
+
+SELECT
+    'yellow_tripdata_2020_09' AS table_name,
+    COUNT(*) AS total_rows
+  FROM
+    `composite-haiku-402317.ny_taxi.yellow_tripdata_2020_09`
+UNION ALL
+
+SELECT
+    'yellow_tripdata_2020_10' AS table_name,
+    COUNT(*) AS total_rows
+  FROM
+    `composite-haiku-402317.ny_taxi.yellow_tripdata_2020_10`
+UNION ALL
+
+SELECT
+    'yellow_tripdata_2020_11' AS table_name,
+    COUNT(*) AS total_rows
+  FROM
+    `composite-haiku-402317.ny_taxi.yellow_tripdata_2020_11`
+UNION ALL
+
+SELECT
+    'yellow_tripdata_2020_12' AS table_name,
+    COUNT(*) AS total_rows
+  FROM
+    `composite-haiku-402317.ny_taxi.yellow_tripdata_2020_12`
+
+'''
+    
+
+
+
+
 
   
 
