@@ -5,6 +5,8 @@ volumes:
         driver: local
     kestra_data:
         driver: local
+    pgadmin_data:
+        driver: local
 
 services:
     pgdatabase:
@@ -16,7 +18,7 @@ services:
             POSTGRES_DB: ny_taxi
             POSTGRES_INITDB_ARGS: "-c shared_buffers=256MB"
         ports:
-            - "5432:5432"
+            - "127.0.0.1:5432:5432"
         volumes:
             - ny_taxi_postgres_data:/var/lib/postgresql
             - ../pipeline:/pipeline
@@ -28,10 +30,13 @@ services:
         image: dpage/pgadmin4
         container_name: pgadmin
         environment:
-            - PGADMIN_DEFAULT_EMAIL=admin@admin.com
-            - PGADMIN_DEFAULT_PASSWORD=root
+            PGADMIN_DEFAULT_EMAIL: admin@admin.com
+            PGADMIN_DEFAULT_PASSWORD: root
+        volumes:
+            - pgadmin_data:/var/lib/pgadmin
+            - ./pgadmin_config.py:/pgadmin4/config_local.py:ro
         ports:
-            - "8085:80"
+            - "127.0.0.1:8085:80"
         networks:
             - data_engineering_network
         depends_on:
@@ -48,7 +53,7 @@ services:
             POSTGRES_PASSWORD: kestra
             POSTGRES_INITDB_ARGS: "-c shared_buffers=256MB"
         ports:
-            - "5433:5432"
+            - "127.0.0.1:5433:5432"
         networks:
             - data_engineering_network
         healthcheck:
@@ -69,7 +74,10 @@ services:
             - /var/run/docker.sock:/var/run/docker.sock
             - /tmp/kestra-wd:/tmp/kestra-wd
             - ../pipeline:/pipeline
+            - ./credentials:/app/credentials:ro
         environment:
+            KESTRA_ENCRYPTION_SECRET_KEY: ${KESTRA_ENCRYPTION_KEY:-change-this-to-a-secure-random-key-min-32-chars}
+            GEMINI_API_KEY: ${GEMINI_API_KEY}
             KESTRA_CONFIGURATION: |
                 datasources:
                     postgres:
@@ -94,9 +102,16 @@ services:
                         tmpDir:
                             path: /tmp/kestra-wd/tmp
                     url: http://localhost:8080/
+                    encryption:
+                        secretKey: ${KESTRA_ENCRYPTION_SECRET_KEY}
+                    ai:
+                        type: gemini
+                        gemini:
+                            model-name: gemini-2.5-flash
+                            api-key: ${GEMINI_API_KEY}
         ports:
-            - "8080:8080"
-            - "8081:8081"
+            - "127.0.0.1:8080:8080"
+            - "127.0.0.1:8081:8081"
         networks:
             - data_engineering_network
         depends_on:
