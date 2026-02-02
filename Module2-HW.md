@@ -2,9 +2,9 @@
 
 ## Question 1: What is the uncompressed file size (i.e. the output file yellow_tripdata_2020-12.csv of the extract task)?
 
-### To output the uncompressed file size, additional tasks were added to the flow to output and log the file size.
+To output the uncompressed file size, additional tasks were added to the flow to log the file size.
 
-'''YAML
+'''yaml
 - id: get_file_size
     type: io.kestra.plugin.core.storage.Size
     uri: "{{render(vars.data)}}"
