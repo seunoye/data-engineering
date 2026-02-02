@@ -1,0 +1,26 @@
+id: google_bigquery_example
+namespace: data_engineering
+
+description: Example flow using Google BigQuery with KV Store
+
+tasks:
+  - id: query_bigquery
+    type: io.kestra.plugin.gcp.bigquery.Query
+    sql: |
+      SELECT 
+        *
+      FROM `your-project.your-dataset.your-table`
+      LIMIT 10
+    store: true
+
+  - id: log_results
+    type: io.kestra.plugin.core.log.Log
+    message: "Query completed successfully. Rows returned: {{ outputs.query_bigquery.size }}"
+
+pluginDefaults:
+  - type: io.kestra.plugin.gcp
+    values:
+      serviceAccount: "{{ kv('GCP_CREDS') }}"
+      projectId: "{{ kv('GCP_PROJECT_ID') }}"
+      location: "{{ kv('GCP_LOCATION') }}"
+      bucket: "{{ kv('GCP_BUCKET_NAME') }}"
