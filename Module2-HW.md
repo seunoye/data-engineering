@@ -37,19 +37,19 @@ To output the uncompressed file size, additional tasks were added to the flow to
 ## Question 3. How many rows are there in the Yellow Taxi data for all CSV files in 2020?
 
 '''sql
-
-SELECT
-  table_id AS table_name,
-  row_count AS total_rows
-FROM
-  `composite-haiku-402317.ny_taxi.__TABLES__`
-WHERE
-  table_id LIKE 'yellow_tripdata_20%'
-  AND NOT table_id LIKE '%_ext'
-ORDER BY
-  table_id;
-
+    
+    SELECT
+      table_id AS table_name,
+      row_count AS total_rows
+    FROM
+      `composite-haiku-402317.ny_taxi.__TABLES__`
+    WHERE
+      table_id LIKE 'yellow_tripdata_20%'
+      AND NOT table_id LIKE '%_ext'
+    ORDER BY
+      table_id;
 '''
+### Answer 24,648,499
 
     
 
