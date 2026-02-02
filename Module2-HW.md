@@ -21,7 +21,18 @@ To output the uncompressed file size, additional tasks were added to the flow to
 
 ### Output file size after execution
 <img width="1482" height="916" alt="image" src="https://github.com/user-attachments/assets/ddfada3f-2647-4441-b54a-65c8424c7368" />
+### Answer
 134.5 MiB
+
+## Question 2: What is the rendered value of the variable file when the input taxi is set to green, year is set to 2020, and month is set to 04 during execution?
+<img width="952" height="613" alt="image" src="https://github.com/user-attachments/assets/57030c36-e7a7-4532-9fd2-f78ecd60af28" />
+
+<img width="1460" height="743" alt="image" src="https://github.com/user-attachments/assets/8e70772f-fcd8-4ee9-b4a5-7c0e1d406f4f" />
+{{outputs.extract.outputFiles[inputs.taxi ~ '_tripdata_' ~ inputs.year ~ '-' ~ inputs.month ~ '.csv']}}
+
+### Answer
+{{inputs.taxi}}_tripdata_{{inputs.year}}-{{inputs.month}}.csv
+
 
 
   
