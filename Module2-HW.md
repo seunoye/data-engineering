@@ -36,35 +36,32 @@ To output the uncompressed file size, additional tasks were added to the flow to
 
 ## Question 3. How many rows are there in the Yellow Taxi data for all CSV files in 2020?
 
-'''SQL
+'''sql
+
 SELECT
     'yellow_tripdata_2020_01' AS table_name,
     COUNT(*) AS total_rows
   FROM
     `composite-haiku-402317.ny_taxi.yellow_tripdata_2020_01`
 UNION ALL
-
 SELECT
     'yellow_tripdata_2020_02' AS table_name,
     COUNT(*) AS total_rows
   FROM
     `composite-haiku-402317.ny_taxi.yellow_tripdata_2020_02`
 UNION ALL
-
 SELECT
     'yellow_tripdata_2020_03' AS table_name,
     COUNT(*) AS total_rows
   FROM
     `composite-haiku-402317.ny_taxi.yellow_tripdata_2020_03`
 UNION ALL
-
 SELECT
     'yellow_tripdata_2020_04' AS table_name,
     COUNT(*) AS total_rows
   FROM
     `composite-haiku-402317.ny_taxi.yellow_tripdata_2020_04`
 UNION ALL
-
 SELECT
     'yellow_tripdata_2020_05' AS table_name,
     COUNT(*) AS total_rows
@@ -95,41 +92,36 @@ SELECT
   FROM
     `composite-haiku-402317.ny_taxi.yellow_tripdata_2020_07`
 UNION ALL
-
 SELECT
     'yellow_tripdata_2020_08' AS table_name,
     COUNT(*) AS total_rows
   FROM
     `composite-haiku-402317.ny_taxi.yellow_tripdata_2020_08`
 UNION ALL
-
 SELECT
     'yellow_tripdata_2020_09' AS table_name,
     COUNT(*) AS total_rows
   FROM
     `composite-haiku-402317.ny_taxi.yellow_tripdata_2020_09`
 UNION ALL
-
 SELECT
     'yellow_tripdata_2020_10' AS table_name,
     COUNT(*) AS total_rows
   FROM
     `composite-haiku-402317.ny_taxi.yellow_tripdata_2020_10`
 UNION ALL
-
 SELECT
     'yellow_tripdata_2020_11' AS table_name,
     COUNT(*) AS total_rows
   FROM
     `composite-haiku-402317.ny_taxi.yellow_tripdata_2020_11`
 UNION ALL
-
 SELECT
     'yellow_tripdata_2020_12' AS table_name,
     COUNT(*) AS total_rows
   FROM
     `composite-haiku-402317.ny_taxi.yellow_tripdata_2020_12`
-
+    
 '''
     
 
