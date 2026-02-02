@@ -13,6 +13,8 @@ To output the uncompressed file size, additional tasks were added to the flow to
     type: io.kestra.plugin.scripts.shell.Commands
     commands:
       - echo "file size for {{ inputs.taxi }} taxi data ({{ inputs.year }}-{{ inputs.month }}):{{ outputs.get_file_size.size }} bytes"
+
+
   '''
 
   
