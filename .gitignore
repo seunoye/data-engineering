@@ -1,0 +1,18 @@
+# Database files
+*.db
+*.duckdb
+
+# Bruin cache
+.bruin/
+logs/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# OS files
+.DS_Store
+
+# Credentials (never commit)
+*credentials*.json
