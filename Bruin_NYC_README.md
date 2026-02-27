@@ -19,12 +19,14 @@ The pipeline uses DuckDB as the local analytical database, making it lightweight
 
 Project Structure
 
-my-taxi-pipeline/
-├── .bruin.yml                          # Global Bruin configuration
-├── .gitignore
-├── README.md
-├── logs/                               # Pipeline execution logs
-└── pipeline/
+'''
+
+    my-taxi-pipeline/
+    ├── .bruin.yml                          # Global Bruin configuration
+    ├── .gitignore
+    ├── README.md
+    ├── logs/                               # Pipeline execution logs
+    └── pipeline/
     ├── pipeline.yml                    # Pipeline definition & connections
     └── assets/
         ├── ingestion/                  # Layer 1: Raw data ingestion
@@ -36,7 +38,7 @@ my-taxi-pipeline/
         │   └── trips.sql              # SQL transformation asset
         └── reports/                   # Layer 3: Business-ready analytics
             └── trips_report.sql       # SQL aggregation asset
-
+'''
 
 Step-by-Step Workflow
 
