@@ -19,38 +19,38 @@ The pipeline uses DuckDB as the local analytical database, making it lightweight
 
 ## Architecture
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                      NYC TAXI PIPELINE                      │
-│                                                             │
-│   ┌──────────────┐    ┌──────────────┐    ┌──────────────┐  │
-│   │  INGESTION   │───▶│   STAGING    │───▶│   REPORTS   │  │
-│   │   (Layer 1)  │    │   (Layer 2)  │    │   (Layer 3)  │  │
-│   └──────────────┘    └──────────────┘    └──────────────┘  │
-│                                                              │
-│   • trips.py            • trips.sql       • trips_report.sql │
-│     (Python → API)        (SQL Transform)   (SQL Aggregate)  │
-│   • payment_lookup                                           │
-│     (CSV Seed)                                               │
-│                                                              │
-│   ┌──────────────────────────────────────────────────────┐   │
-│   │               DuckDB (Local Warehouse)               │   │
-│   │                                                      │   │
-│   │  ingestion.trips    staging.trips    reports.trips   │   │
-│   │  ingestion.payment_lookup            _report         │   │
-│   └──────────────────────────────────────────────────────┘   │
-└─────────────────────────────────────────────────────────────┘
+    ┌─────────────────────────────────────────────────────────────┐
+    │                      NYC TAXI PIPELINE                      │
+    │                                                             │
+    │   ┌──────────────┐    ┌──────────────┐    ┌──────────────┐  │
+    │   │  INGESTION   │───▶│   STAGING    │───▶│   REPORTS   │  │
+    │   │   (Layer 1)  │    │   (Layer 2)  │    │   (Layer 3)  │  │
+    │   └──────────────┘    └──────────────┘    └──────────────┘  │
+    │                                                              │
+    │   • trips.py            • trips.sql       • trips_report.sql │
+    │     (Python → API)        (SQL Transform)   (SQL Aggregate)  │
+    │   • payment_lookup                                           │
+    │     (CSV Seed)                                               │
+    │                                                              │
+    │   ┌──────────────────────────────────────────────────────┐   │
+    │   │               DuckDB (Local Warehouse)               │   │
+    │   │                                                      │   │
+    │   │  ingestion.trips    staging.trips    reports.trips   │   │
+    │   │  ingestion.payment_lookup            _report         │   │
+    │   └──────────────────────────────────────────────────────┘   │
+    └─────────────────────────────────────────────────────────────┘
 
-'''
+    '''
 Project Structure
-    my-taxi-pipeline/
-    ├── .bruin.yml                          # Global Bruin configuration
-    ├── .gitignore
-    ├── README.md
-    ├── logs/                               # Pipeline execution logs
-    └── pipeline/
-    ├── pipeline.yml                    # Pipeline definition & connections
-    └── assets/
+
+        my-taxi-pipeline/
+        ├── .bruin.yml                          # Global Bruin configuration
+        ├── .gitignore
+        ├── README.md
+        ├── logs/                               # Pipeline execution logs
+        └── pipeline/
+        ├── pipeline.yml                    # Pipeline definition & connections
+        └── assets/
         ├── ingestion/                  # Layer 1: Raw data ingestion
         │   ├── trips.py               # Python asset — fetches TLC data
         │   ├── payment_lookup.asset.yml# CSV seed asset definition
@@ -60,43 +60,42 @@ Project Structure
         │   └── trips.sql              # SQL transformation asset
         └── reports/                   # Layer 3: Business-ready analytics
             └── trips_report.sql       # SQL aggregation asset
-'''
+    '''
 
-Step-by-Step Workflow
+## Step-by-Step Workflow
 
-Step 1 — Configuration
-File: .bruin.yml
-This is the global Bruin configuration that defines environments and database connections.
+### Step 1 — Configuration
+    File: .bruin.yml
+    This is the global Bruin configuration that defines environments and database connections.
 
+    File: pipeline/pipeline.yml
+    Defines the pipeline metadata, DuckDB connection, and scheduling.
 
-File: pipeline/pipeline.yml
-Defines the pipeline metadata, DuckDB connection, and scheduling.
+    # Key settings in pipeline.yml
+    name: nyc-taxi
+    schedule: daily
 
-# Key settings in pipeline.yml
-name: nyc-taxi
-schedule: daily
-
-default_connections:
-  duckdb: duckdb-default    # All assets use this DuckDB connection
+    default_connections:
+      duckdb: duckdb-default    # All assets use this DuckDB connection
 
 💡 One config, one source of truth. No scattered connection strings across files.
 
 
 
-Step 2 — Ingestion Layer
+### Step 2 — Ingestion Layer
 This layer pulls raw data from external sources into the ingestion schema.
 
-2a. Trips Data (Python Asset)
-File: pipeline/assets/ingestion/trips.py
+### 2a. Trips Data (Python Asset)
+    File: pipeline/assets/ingestion/trips.py
 
-|Property |	 Value |
-|---------|--------|
-|Type	|  Python  |
-|Source	| NYC TLC CloudFront (Parquet files)|
-|Strategy | create+replace (full refresh)|
-|Output |  ingestion.trips |
+    |Property |	 Value |
+    |---------|--------|
+    |Type	|  Python  |
+    |Source	| NYC TLC CloudFront (Parquet files)|
+    |Strategy | create+replace (full refresh)|
+    |Output |  ingestion.trips |
 
-What it does:
+### What it does:
 
 1. Reads BRUIN_START_DATE and BRUIN_END_DATE environment variables.
 2. Falls back to January 2024 if the requested dates have no available data.
@@ -106,44 +105,45 @@ What it does:
 6. Returns a Pandas DataFrame that Bruin loads into DuckDB.
 
 Output columns:
-| Column | Type | Description |
-|--------|------|-------------|
-| trip_id | string | unique indentifier per trip |
-| taxi_type |string | yellow or green |
-| pickup_datetime | datetime | When the trip started |
-| dropoff_datetime | datetime | When the trip ended |
-| passenger_count| integer | Number of passengers |
-| extracted_at | datetime | When the data was extracted |
 
-2b. Payment Lookup (CSV Seed Asset)
-File: pipeline/assets/ingestion/payment_lookup.csv
+    | Column | Type | Description |
+    |--------|------|-------------|
+    | trip_id | string | unique indentifier per trip |
+    | taxi_type |string | yellow or green |
+    | pickup_datetime | datetime | When the trip started |
+    | dropoff_datetime | datetime | When the trip ended |
+    | passenger_count| integer | Number of passengers |
+    | extracted_at | datetime | When the data was extracted |
 
-| Property | Value |
-|----------|-------|
-| Type | CSV Seed |
-| Strategy | replace (full refresh every run) |
-| Output | ingestion.payment_lookup |
-| Primary Key| payment_type_id |
+### 2b. Payment Lookup (CSV Seed Asset)
+    File: pipeline/assets/ingestion/payment_lookup.csv
+
+    | Property | Value |
+    |----------|-------|
+    | Type | CSV Seed |
+    | Strategy | replace (full refresh every run) |
+    | Output | ingestion.payment_lookup |
+    | Primary Key| payment_type_id |
 
 What it does:
 Loads a static reference table mapping payment type IDs to human-readable names.
 Built-in quality checks:
 
-| Check | Purpose |
-|-------|---------|
-| payment_type_id: not_null | No null primary keys |
-| payment_type_id: unique	No | duplicate payment types |
-| payment_type_name: not_null | Every type has a name |
-💡 Data quality is a first-class citizen — checks run automatically after every load.
+    | Check | Purpose |
+    |-------|---------|
+    | payment_type_id: not_null | No null primary keys |
+    | payment_type_id: unique	No | duplicate payment types |
+    | payment_type_name: not_null | Every type has a name |
+    💡 Data quality is a first-class citizen — checks run automatically after every load.
 
-Step 3 — Staging Layer
-File: pipeline/assets/staging/trips.sql
+### Step 3 — Staging Layer
+    File: pipeline/assets/staging/trips.sql
 
-| Property | Value |
-|----------|-------|
-| Type | DuckDB SQL |
-| Depends on | ingestion.trips |
-| Output | staging.trips |
+    | Property | Value |
+    |----------|-------|
+    | Type | DuckDB SQL |
+    | Depends on | ingestion.trips |
+    | Output | staging.trips |
 
 What it does:
 Transforms raw ingested data into a cleaned, analysis-ready format. Typical transformations include:
@@ -173,14 +173,14 @@ Transforms raw ingested data into a cleaned, analysis-ready format. Typical tran
     
 Dependency management is declarative — Bruin ensures ingestion.trips completes before staging.trips starts.
 
-Step 4 — Reports Layer
-File: pipeline/assets/reports/trips_report.sql
+### Step 4 — Reports Layer
+    File: pipeline/assets/reports/trips_report.sql
 
-| Property | Value |
-|----------|-------|
-| Type | DuckDB SQL |
-| Depends on | staging.trips |
-| Output | reports.trips_report |
+    | Property | Value |
+    |----------|-------|
+    | Type | DuckDB SQL |
+    | Depends on | staging.trips |
+    | Output | reports.trips_report |
 
 What it does:
 Produces a final aggregated report with trip statistics grouped by taxi type and month.
@@ -207,7 +207,7 @@ Produces a final aggregated report with trip statistics grouped by taxi type and
 
 Execution Flow Summary
 
-bruin run
+    bruin run
     │
     ├──▶ ingestion.payment_lookup   (CSV → DuckDB)
     │       └──▶ Quality Checks ✓
@@ -218,8 +218,8 @@ bruin run
     │
     └──▶ reports.trips_report       (SQL aggregate, waits for staging.trips)
     
-Parallel execution: ingestion.trips, and ingestion.payment_lookup run in parallel 
-since they have no dependencies on each other.
+    Parallel execution: ingestion.trips, and ingestion.payment_lookup run in parallel 
+    since they have no dependencies on each other.
 
 
 ## How to Run
@@ -264,7 +264,7 @@ Expected Output
 
 # Why Bruin for Data Engineering
 
-1. 🔀 Multi-Language Assets in One Pipeline
+## 1. 🔀 Multi-Language Assets in One Pipeline
 Bruin lets you mix Python and SQL assets seamlessly. No glue code needed.
 
 | Need to call an API?  | → Write a Python asset |
@@ -272,13 +272,13 @@ Bruin lets you mix Python and SQL assets seamlessly. No glue code needed.
 | Need to transform data? | → Write a SQL asset |
 | Need a reference table? | → Drop in a CSV seed |
 
-2. 📦 Zero Infrastructure
+## 2. 📦 Zero Infrastructure
 No Airflow. No Spark cluster. No Docker Compose. Just:
 
         bruin run
 Bruin manages Python environments, dependencies, and execution order automatically.
 
-3. 🔗 Declarative Dependencies
+## 3. 🔗 Declarative Dependencies
 Dependencies are defined inside each asset file, not in a separate DAG definition:
 
        /* @bruin
@@ -288,7 +288,7 @@ Dependencies are defined inside each asset file, not in a separate DAG definitio
 
 Bruin builds the execution graph automatically and runs assets in the correct order with maximum parallelism.
 
-4. ✅ Built-In Data Quality
+## 4. ✅ Built-In Data Quality
 Quality checks are embedded directly in asset definitions:
 
         columns:
@@ -298,19 +298,20 @@ Quality checks are embedded directly in asset definitions:
           - name: unique
 No need for a separate tool like Great Expectations or dbt tests.
 
-5. 🏗️ Layered Architecture Out of the Box
+## 5. 🏗️ Layered Architecture Out of the Box
 Bruin naturally supports the medallion architecture pattern:
 
-| Layer | Schema | Purpose |
-|-------|--------|---------|
-| Ingestion | ingestion | Raw data from external sources |
-| Staging | staging | Cleaned & transformed data |
-| Reports | reports | Business-ready aggregations |
+    | Layer | Schema | Purpose |
+    |-------|--------|---------|
+    | Ingestion | ingestion | Raw data from external sources |
+    | Staging | staging | Cleaned & transformed data |
+    | Reports | reports | Business-ready aggregations |
 
-6. 🔄 Environment Management
+## 6. 🔄 Environment Management
 Switch between default (dev) and production with a single flag:
 
        bruin run --environment production
+       
 Connection strings, credentials, and configs swap automatically.
 
 Bruin turns what would be a multi-tool, multi-service data platform into a single CLI command. 
