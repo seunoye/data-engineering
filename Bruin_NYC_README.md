@@ -21,10 +21,10 @@ The pipeline uses DuckDB as the local analytical database, making it lightweight
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                      NYC TAXI PIPELINE                       │
-│                                                              │
+│                      NYC TAXI PIPELINE                      │
+│                                                             │
 │   ┌──────────────┐    ┌──────────────┐    ┌──────────────┐  │
-│   │  INGESTION   │───▶│   STAGING    │───▶│   REPORTS    │  │
+│   │  INGESTION   │───▶│   STAGING    │───▶│   REPORTS   │  │
 │   │   (Layer 1)  │    │   (Layer 2)  │    │   (Layer 3)  │  │
 │   └──────────────┘    └──────────────┘    └──────────────┘  │
 │                                                              │
@@ -36,16 +36,13 @@ The pipeline uses DuckDB as the local analytical database, making it lightweight
 │   ┌──────────────────────────────────────────────────────┐   │
 │   │               DuckDB (Local Warehouse)               │   │
 │   │                                                      │   │
-│   │  ingestion.trips    staging.trips    reports.trips    │   │
+│   │  ingestion.trips    staging.trips    reports.trips   │   │
 │   │  ingestion.payment_lookup            _report         │   │
 │   └──────────────────────────────────────────────────────┘   │
 └─────────────────────────────────────────────────────────────┘
 
-
-Project Structure
-
 '''
-
+Project Structure
     my-taxi-pipeline/
     ├── .bruin.yml                          # Global Bruin configuration
     ├── .gitignore
