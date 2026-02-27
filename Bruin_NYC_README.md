@@ -41,7 +41,7 @@ The pipeline uses DuckDB as the local analytical database, making it lightweight
     │   └──────────────────────────────────────────────────────┘   │
     └─────────────────────────────────────────────────────────────┘
 
-    '''
+  
 ## Project Structure
 
         my-taxi-pipeline/
