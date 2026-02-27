@@ -10,7 +10,8 @@ Table of Contents
 6.  How to Run
 7.  Why Bruin for Data Engineering
 
-Project Overview
+## Project Overview
+
 The NYC Taxi Pipeline (my-taxi-pipeline) is a data engineering pipeline built with Bruin that:
 -Ingests NYC Taxi & Limousine Commission (TLC) trip data from a public cloud source
 -Stages the data with transformations and business logic
@@ -41,7 +42,7 @@ The pipeline uses DuckDB as the local analytical database, making it lightweight
     └─────────────────────────────────────────────────────────────┘
 
     '''
-Project Structure
+## Project Structure
 
         my-taxi-pipeline/
         ├── .bruin.yml                          # Global Bruin configuration
