@@ -17,6 +17,31 @@ The NYC Taxi Pipeline (my-taxi-pipeline) is a data engineering pipeline built wi
 -Reports aggregated trip statistics for analysis
 The pipeline uses DuckDB as the local analytical database, making it lightweight, fast, and fully portable.
 
+## Architecture
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                      NYC TAXI PIPELINE                       │
+│                                                              │
+│   ┌──────────────┐    ┌──────────────┐    ┌──────────────┐  │
+│   │  INGESTION   │───▶│   STAGING    │───▶│   REPORTS    │  │
+│   │   (Layer 1)  │    │   (Layer 2)  │    │   (Layer 3)  │  │
+│   └──────────────┘    └──────────────┘    └──────────────┘  │
+│                                                              │
+│   • trips.py            • trips.sql       • trips_report.sql │
+│     (Python → API)        (SQL Transform)   (SQL Aggregate)  │
+│   • payment_lookup                                           │
+│     (CSV Seed)                                               │
+│                                                              │
+│   ┌──────────────────────────────────────────────────────┐   │
+│   │               DuckDB (Local Warehouse)               │   │
+│   │                                                      │   │
+│   │  ingestion.trips    staging.trips    reports.trips    │   │
+│   │  ingestion.payment_lookup            _report         │   │
+│   └──────────────────────────────────────────────────────┘   │
+└─────────────────────────────────────────────────────────────┘
+
+
 Project Structure
 
 '''
