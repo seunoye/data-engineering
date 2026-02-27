@@ -19,6 +19,8 @@ The pipeline uses DuckDB as the local analytical database, making it lightweight
 
 Architecture Diagram
 
+
+''' 
 ─────────────────────────────────────────────────────────┐
 │                    NYC TAXI PIPELINE                     │
 │                                                         │
@@ -43,6 +45,7 @@ Architecture Diagram
 │  │  └──────────┘  └──────────┘  └──────────────────┘  ││
 │  └─────────────────────────────────────────────────────┘│
 └─────────────────────────────────────────────────────────┘
+'''
 
 Project Structure
 
