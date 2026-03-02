@@ -1,4 +1,4 @@
-The use of DLT (Data Load Tool) provides a complete data pipeline to ingest, store, and 
+The use of dlt (Data Load Tool) provides a complete data pipeline to ingest, store, and 
 analyze NYC taxi ride data with DuckDB as the destination.
 
 
@@ -20,4 +20,35 @@ SELECT
 FROM rides;
 ```
 Result: 2009-06-01 to 2009-07-01
+
+
+### Question 2. What proportion of trips are paid with credit card?
+
+```sql
+SELECT 
+    payment_type,
+    COUNT(*) AS trip_count,
+    ROUND(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER(), 2) AS percentage
+FROM rides
+GROUP BY payment_type
+ORDER BY trip_count DESC;
+```
+
+Result: 26.66%
+
+
+### Question 3. What is the total amount of money generated in tips?
+
+```sql
+SELECT 
+    ROUND(SUM(tip_amt), 3) AS total_tips
+FROM rides;
+```
+
+Result: $6,063.41
+
+Screenshot of the SQL query using the marimo notebook.
+
+<img width="997" height="921" alt="image" src="https://github.com/user-attachments/assets/01ba42e3-86c0-4711-a1d6-903a92040a33" />
+
 
