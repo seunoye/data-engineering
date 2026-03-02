@@ -14,10 +14,10 @@ It is interesting to note that taxi ride data loaded via the dlt pipeline can be
 ###  Question 1. What is the start date and end date of the dataset?
 
 ```sql
-
 SELECT 
-      MIN(trip_pickup_date_time) AS start_date,
-      MAX(trip_dropoff_date_time) AS end_date
-  FROM rides;
+    MIN(trip_pickup_date_time) AS start_date,
+    MAX(trip_dropoff_date_time) AS end_date
+FROM rides;
 ```
+Result: 2009-06-01 to 2009-07-01
 
