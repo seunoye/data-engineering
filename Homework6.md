@@ -62,10 +62,10 @@ Copy Java and Spark to .bashrc
 # Question 5: User Interface
 Spark's User Interface, which shows the application's dashboard, runs on which local port?
 
-Results: Spark UI runs on ports 4040 and 4041, from my experience.
+    Results: Spark UI runs on ports 4040 and 4041, from my experience.
 
 
-Question 6: Least frequent pickup location zone
+# Question 6: Least frequent pickup location zone
 
     # Least frequent pickup location zone
     df_trips_data.createOrReplaceTempView("yellow_tripdata_2025_11")
