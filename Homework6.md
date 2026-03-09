@@ -2,7 +2,7 @@
 
 # install spark
     wget https://dlcdn.apache.org/spark/spark-3.5.8/spark-3.5.8-bin-hadoop3.tgz
-# unpact it
+# unpack it
     tar xvfz spark-3.5.8-bin-hadoop3.tgz
 
 Setting up PySpark
